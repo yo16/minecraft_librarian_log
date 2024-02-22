@@ -1,0 +1,2 @@
+# minecraft_librarian_log
+マイクラの司書ガチャを記録する
