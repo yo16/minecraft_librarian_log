@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 
 // DB初期化
-initializeDb("./minecraft_data.db");
+initializeDb();
 
 // 起動
 app.listen(8080, () => {
