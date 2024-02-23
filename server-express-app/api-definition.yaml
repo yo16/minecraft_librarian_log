@@ -44,42 +44,42 @@ paths:
       description: ログ内容を登録して、統計情報を返す
       operationId: registerExchangeItems
       parameters:
-        - name: item_name1
+        - name: item1_name
           description: アイテム名
           in: query
           required: true
           schema:
             type: string
           example: 効率強化
-        - name: item_level1
+        - name: item1_level
           description: アイテムのレベル
           in: query
           required: false
           schema:
             type: integer
           example: 5
-        - name: item_price1
+        - name: item1_price
           description: アイテムのエメラルド価格
           in: query
           required: true
           schema:
             type: integer
           example: 54
-        - name: item_name2
+        - name: item2_name
           description: アイテム名
           in: query
           required: true
           schema:
             type: string
           example: 効率強化
-        - name: item_level2
+        - name: item2_level
           description: アイテムのレベル
           in: query
           required: false
           schema:
             type: integer
           example: 5
-        - name: item_price2
+        - name: item2_price
           description: アイテムのエメラルド価格
           in: query
           required: true

@@ -33,3 +33,19 @@ app.get('/', (req, res)=> {
         average, standard_deviation, probability,
     });
 });
+
+// 登録
+app.post('/', (req, res) => {
+    const ret = setItemStatistics(
+        req.body.item1_name,
+        req.body.item1_level,
+        req.body.item1_price,
+        req.body.item2_name,
+        req.body.item2_level,
+        req.body.item2_price,
+    );
+    
+    // 結果を返す
+    res.json(ret);
+
+});
