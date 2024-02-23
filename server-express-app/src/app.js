@@ -3,13 +3,16 @@
 https://zenn.dev/oreo2990/articles/b4719c78aa0832
 */
 
-import { getItemStatistics, setItemStatistics } from './itemInfo.js';
+import { getItemStatistics, setItemStatistics, initializeDb } from './itemInfo.js';
 
 //expressモジュールの読み込み
 import express from "express";
 //expressのインスタンス化
 const app = express();
 app.use(express.json());
+
+// DB初期化
+initializeDb("./minecraft_data.db");
 
 // 起動
 app.listen(8080, () => {
