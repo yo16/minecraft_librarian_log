@@ -1,5 +1,7 @@
 import sqlite3 from "sqlite3";
 
+import ENCHANT_DEFINITION from "./enchant_definition.json" assert { type: "json" };
+
 const DB_FILE = "./minecraft_data.db";
 let db = null;
 
@@ -11,7 +13,8 @@ const initializeDb = () => {
         "( " +
         "name text not null, " +
         "level integer not null, " +
-        "price integer " +
+        "price integer, " +
+        "created_at text not null" +
         ");"
     );
 };
@@ -32,6 +35,13 @@ const setItemStatistics = (
     item1, level1, price1,
     item2, level2, price2,
 ) => {
+    // 軽く入力チェック
+    if (!validateInputValue(item1, level1) ||
+        !validateInputValue(item2, level2))
+    {
+        throw new Error("item is invalid!");
+    }
+
     // dbへinsert
     registerItem(item1, level1, price1);
     registerItem(item2, level2, price2);
@@ -59,10 +69,31 @@ const setItemStatistics = (
 // item, level, priceをdbへ登録
 function registerItem(item, level, price){
     db.run(
-        "insert into rib_log(name, level, price) values(?,?,?)",
-        item, level, price
+        "insert into rib_log(name, level, price, created_at) values(?,?,?,?)",
+        item, level, price, getNowStr()
     );
 }
+function getNowStr(){
+    return new Date().toLocaleString("ja-JP");
+}
+
+// validation
+function validateInputValue(item, level){
+    if (item==="紙" || item ==="本棚") return true;
+    
+    return ENCHANT_DEFINITION.enchanting.reduce(
+        (count, def) => {
+            if (def.name === item) {
+                if (level <= def.max_level) {
+                    return count + 1;
+                }
+            }
+            return count;
+        },
+        0
+    ) === 1 ? true: false;
+}
+
 
 
 export {
