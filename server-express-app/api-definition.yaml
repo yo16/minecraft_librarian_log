@@ -1,0 +1,142 @@
+openapi: 3.0.3
+info:
+  version: 1.0.0-oas3.1
+  title: minecraft_librarian_log_server
+  description: Minecraftの司書のログ問い合わせ/登録サーバー
+servers:
+  - url: http://localhost:8080
+paths:
+  /:
+    get:
+      description: アイテムの価格の統計情報を返す
+      operationId: getItemStatistics
+      parameters:
+        - name: item_name
+          description: アイテム名
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 効率強化
+        - name: item_level
+          description: アイテムのレベル
+          in: query
+          required: false
+          schema:
+            type: integer
+          example: 5
+        - name: item_price
+          description: アイテムのエメラルド価格
+          in: query
+          required: true
+          schema:
+            type: integer
+          example: 54
+      responses:
+        '200':
+          description: OK!
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ItemStatistics'
+                
+    post:
+      description: ログ内容を登録して、統計情報を返す
+      operationId: registerExchangeItems
+      parameters:
+        - name: item_name1
+          description: アイテム名
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 効率強化
+        - name: item_level1
+          description: アイテムのレベル
+          in: query
+          required: false
+          schema:
+            type: integer
+          example: 5
+        - name: item_price1
+          description: アイテムのエメラルド価格
+          in: query
+          required: true
+          schema:
+            type: integer
+          example: 54
+        - name: item_name2
+          description: アイテム名
+          in: query
+          required: true
+          schema:
+            type: string
+          example: 効率強化
+        - name: item_level2
+          description: アイテムのレベル
+          in: query
+          required: false
+          schema:
+            type: integer
+          example: 5
+        - name: item_price2
+          description: アイテムのエメラルド価格
+          in: query
+          required: true
+          schema:
+            type: integer
+          example: 54
+      responses:
+        '200':
+          description: OK.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/ItemStatistics'
+
+              examples:
+                success1:
+                  value:
+                    -
+                      item: 効率強化
+                      level: 5
+                      price: 54
+                      average: 41.1
+                      standard_deviation: 18.1
+                      probability: 0.241964
+                    -
+                      item: 効率強化
+                      level: 5
+                      price: 54
+                      average: 41.1
+                      standard_deviation: 18.1
+                      probability: 0.241964
+
+components:
+  schemas:
+    ItemStatistics:
+      type: object
+      properties:
+        item:
+          type: string
+          example: 効率強化
+        level:
+          type: integer
+          example: 5
+        price:
+          type: integer
+          example: 54
+        average:
+          description: 平均価格
+          type: number
+          example: 41.1
+        standard_deviation:
+          type: number
+          example: 18.1
+        probability:
+          description: この価格になる確率
+          type: number
+          example: 0.241964
+

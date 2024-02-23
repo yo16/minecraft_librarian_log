@@ -3,21 +3,33 @@
 https://zenn.dev/oreo2990/articles/b4719c78aa0832
 */
 
+import { getItemStatistics, setItemStatistics } from './itemInfo.js';
+
 //expressモジュールの読み込み
-const express = require('express')
+import express from "express";
 //expressのインスタンス化
 const app = express();
+app.use(express.json());
 
-//8080番ポートでサーバーを待ちの状態にする。
-//またサーバーが起動したことがわかるようにログを出力する
+// 起動
 app.listen(8080, () => {
-  console.log("サーバー起動中");
+    console.log("サーバー起動中");
 });
 
-//GETリクエストの設定
-//'/get'でアクセスされた時に、JSONとログを出力するようにする
+// 統計情報の問い合わせ
 app.get('/', (req, res)=> {
-    res.json({ "pet": "dog"});
-    console.log('GETリクエストを受け取りました')
-    res.end();
+    const {
+        item, level, price,
+        average, standard_deviation, probability,
+    } = getItemStatistics(
+        req.body.item_name,
+        req.body.item_level,
+        req.body.item_price,
+    );
+    
+    // 結果を返す
+    res.json({
+        item, level, price,
+        average, standard_deviation, probability,
+    });
 });
