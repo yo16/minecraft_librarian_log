@@ -21,34 +21,35 @@ app.listen(8080, () => {
 
 // 統計情報の問い合わせ
 app.get('/', (req, res)=> {
-    const {
+    console.log("get \"/\"");
+    getItemStatistics(
+        req.query.item_name,
+        req.query.item_level,
+        req.query.item_price,
+    ).then(({
         item, level, price,
         average, standard_deviation, probability,
-    } = getItemStatistics(
-        req.body.item_name,
-        req.body.item_level,
-        req.body.item_price,
-    );
-    
-    // 結果を返す
-    res.json({
-        item, level, price,
-        average, standard_deviation, probability,
+    }) => {
+        // 結果を返す
+        res.json({
+            item, level, price,
+            average, standard_deviation, probability,
+        });
     });
 });
 
 // 登録
 app.post('/', (req, res) => {
-    const ret = setItemStatistics(
+    console.log("post \"/\"");
+    setItemStatistics(
         req.body.item1_name,
         req.body.item1_level,
         req.body.item1_price,
         req.body.item2_name,
         req.body.item2_level,
         req.body.item2_price,
-    );
-    
-    // 結果を返す
-    res.json(ret);
-
+    ).then((ret) => {
+        // 結果を返す
+        res.json(ret);
+    });
 });
