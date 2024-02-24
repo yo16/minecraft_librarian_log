@@ -13,6 +13,7 @@ const PriceInput = ({ onEnter=f=>f }) => {
     };
     const handleOnClear = (price) => {
         setPrice(0);
+        onEnter(0);
     }
     const handleOnChangePrice = (p) => {
         setPrice(p);

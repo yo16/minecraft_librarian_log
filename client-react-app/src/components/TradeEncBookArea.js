@@ -73,7 +73,6 @@ const TradeEncBookArea = ({onSelectEncBook = f => f}) => {
     }
     // 料金を登録
     const handleInputPrice = (_price) => {
-        console.log("ここきてない？");
         setPrice(_price);
     }
     // 全部確定
@@ -150,6 +149,7 @@ const TradeEncBookArea = ({onSelectEncBook = f => f}) => {
             <div>
                 <button
                     onClick={handleOnDetermineBook}
+                    disabled={(selectedEnchantLevel<=0 || price===0)}
                 >EN本 確定</button>
             </div>
 
