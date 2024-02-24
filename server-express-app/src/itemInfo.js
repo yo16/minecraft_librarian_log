@@ -92,7 +92,8 @@ async function getStats(item, level, price) {
     } catch (err) {
         console.log("ERROR!!");
         console.log(err);
-        throw err;
+        // 空を返す
+        query_result = {};
     } finally {
         //console.log("query_result end!");
     }
@@ -118,7 +119,13 @@ function getAverage(item, level){
                     reject(err);
                 }
                 ave_price = row.average;
+                // 1件しかないはずだから、1件でresolve
                 resolve(ave_price);
+            },
+            (err, rownum) => {
+                if (rownum!==1) {
+                    reject(new Error(`Data Not Found! name:${item}, level:${level}`));
+                }
             }
         );
     });
