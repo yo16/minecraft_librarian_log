@@ -5,11 +5,15 @@ https://zenn.dev/oreo2990/articles/b4719c78aa0832
 
 import { getItemStatistics, setItemStatistics, initializeDb } from './itemInfo.js';
 
-//expressモジュールの読み込み
 import express from "express";
-//expressのインスタンス化
+import cors from "cors";
+
 const app = express();
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:3000',
+    optionSuccessStatus: 200
+}));
 
 // DB初期化
 initializeDb();
