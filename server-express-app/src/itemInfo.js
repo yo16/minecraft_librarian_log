@@ -69,8 +69,10 @@ function getNowStr(){
 // validation
 function validateInputValue(item, level){
     if (item==="紙" || item ==="本棚") return true;
+    console.log(`item:${item}`);
+    console.log(`level:${level}`);
     
-    return ENCHANT_DEFINITION.enchanting.reduce(
+    const count = ENCHANT_DEFINITION.enchanting.reduce(
         (count, def) => {
             if (def.name === item) {
                 if (level <= def.max_level) {
@@ -80,7 +82,9 @@ function validateInputValue(item, level){
             return count;
         },
         0
-    ) === 1 ? true: false;
+    );
+    console.log(count);
+    return count === 1 ? true: false;
 }
 
 // statsを計算

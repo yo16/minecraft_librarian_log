@@ -1,10 +1,14 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import "./PriceInput.css";
 
-const PriceInput = ({ onEnter=f=>f }) => {
+const PriceInput = ({ initializeSeed, onEnter=f=>f }) => {
     const [price, setPrice] = useState(0);
+
+    useEffect(() => {
+        setPrice(0);
+    }, [initializeSeed]);
 
     const handleOnClick = (n) => {
         const p = Number(String(price) + n);

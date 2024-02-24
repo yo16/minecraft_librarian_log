@@ -44,7 +44,7 @@ app.get('/', (req, res)=> {
 
 // 登録
 app.post('/', (req, res) => {
-    console.log("post \"/\"");
+    console.log("post \"/\""); 
     setItemStatistics(
         req.body.item1_name,
         req.body.item1_level,

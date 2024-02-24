@@ -1,7 +1,7 @@
 /*
 エンチャ本の選択エリア
 */
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import BookGroup from "./BookGroup";
 import Book from "./Book";
@@ -13,7 +13,7 @@ import "./TradeEncBookArea.css";
 import ENC_DEF from "../enchant_definition.json";
 import ENC_REQ from "../enchant_request.json";
 
-const TradeEncBookArea = ({onSelectEncBook = f => f}) => {
+const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
     // 選択しているグループのindex（グループ名配列のindex）
     const [selectedGroupIndex, setSelectedGroupIndex] = useState(0);
     // 選択しているグループのエンチャント名リスト
@@ -29,6 +29,20 @@ const TradeEncBookArea = ({onSelectEncBook = f => f}) => {
         item:"",level:0,price:0,
         average:0, standard_deviation:0, probability:0,
     });
+
+    // 初期化指示が来たら初期化
+    useEffect(()=>{
+        setSelectedGroupIndex(0);
+        setEnchantList(ENC_REQ.group[0].enchantings.map((e)=>e));
+        setSelectedEnchantName(ENC_REQ.group[0].enchantings[0]);
+        setSelectedEnchantLevel(0);
+        setPrice(0);
+        setEnchantStatistics({
+            item:"",level:0,price:0,
+            average:0, standard_deviation:0, probability:0,
+        });
+
+    }, [initializeSeed]);
 
     // ★todo: memo化する
     // グループ名配列
@@ -79,6 +93,7 @@ const TradeEncBookArea = ({onSelectEncBook = f => f}) => {
     const handleOnDetermineBook = () => {
         // サーバーから統計情報を取得して、画面へ表示
         getStatisticsInfo();
+        onSelectEncBook(selectedEnchantName, selectedEnchantLevel, price);
     }
 
     const getStatisticsInfo = async () => {
@@ -87,7 +102,7 @@ const TradeEncBookArea = ({onSelectEncBook = f => f}) => {
             `item_name=${selectedEnchantName}&` +
             `item_level=${selectedEnchantLevel}&` +
             `item_price=${price}`;
-        console.log(query);
+        //console.log(query);
         try {
             const res = await fetch(query);
             const statistics_info = await res.json();
@@ -141,6 +156,7 @@ const TradeEncBookArea = ({onSelectEncBook = f => f}) => {
             {/* エメラルド個数(料金) */}
             <div>
                 <PriceInput
+                    initializeSeed={initializeSeed}
                     onEnter={handleInputPrice}
                 />
             </div>
