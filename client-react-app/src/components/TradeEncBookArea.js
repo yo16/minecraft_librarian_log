@@ -166,7 +166,8 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
                 <button
                     onClick={handleOnDetermineBook}
                     disabled={(selectedEnchantLevel<=0 || price===0)}
-                >EN本 確定</button>
+                    className="btn-dtermine-book"
+                >EN本<br />確定</button>
             </div>
 
             {/* 統計情報 */}

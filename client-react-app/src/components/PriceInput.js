@@ -31,11 +31,13 @@ const PriceInput = ({ initializeSeed, onEnter=f=>f }) => {
                 {[[1,2,3,4,5],[6,7,8,9,0]].map((line_ary, i)=>(
                     <div
                         key={`button_line_${i}`}
+                        className="div-price-nums"
                     >
                         {line_ary.map((n, i)=>(
                             <button
                                 key={`num_${n}`}
                                 onClick={()=>{handleOnClick(n);}}
+                                className="btn-price-num"
                             >{n}</button>
                         ))}
                     </div>
@@ -48,8 +50,13 @@ const PriceInput = ({ initializeSeed, onEnter=f=>f }) => {
                     type="number"
                     value={price}
                     onChange={(e) => handleOnChangePrice(Number(e.target.value))}
+                    className="input-price"
+                    onFocus={(e) => e.target.select()}
                 />
-                <button onClick={handleOnClear}>clr</button>
+                <button
+                    className="btn-clear"
+                    onClick={handleOnClear}
+                >clr</button>
             </div>
         </div>
     );

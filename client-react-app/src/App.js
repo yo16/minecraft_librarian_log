@@ -88,36 +88,45 @@ function App() {
     return (
         <div className="app-frame">
             <div className="item-group">
-                <div>
+                <div
+                    className="item-type"
+                    onClick={()=>{setIsSelectedBookShelf(!isSelectedBookShelf)}}
+                >
                     <input
                         type="checkbox"
                         id="cb_book"
                         checked={isSelectedBookShelf}
                         onChange={(e)=>{handleOnChangeCbBook(e.target.checked);}}
                     />
-                    <label htmlFor="cb_book">本棚</label>
+                    <label>本棚</label>
                 </div>
             </div>
-            <div className="item-group">
-                <div>
+            <div
+                className="item-group"
+                onClick={()=>{setIsSelectedPaper(!isSelectedPaper)}}
+            >
+                <div className="item-type">
                     <input
                         type="checkbox"
                         id="cb_paper"
                         checked={isSelectedPaper}
                         onChange={(e)=>{handleOnChangeCbPaper(e.target.checked);}}
                     />
-                    <label htmlFor="cb_paper">紙</label>
+                    <label>紙</label>
                 </div>
             </div>
             <div className="item-group">
-                <div>
+                <div
+                    className="item-type"
+                    onClick={()=>{setIsSelectedEncBook(!isSelectedEncBook)}}
+                >
                     <input
                         type="checkbox"
                         id="cb_enc_book"
                         checked={isSelectedEncBook}
                         onChange={(e)=>{handleOnChangeCbEncBook(e.target.checked);}}
                     />
-                    <label htmlFor="cb_enc_book">EN本</label>
+                    <label>EN本</label>
                 </div>
                 <TradeEncBookArea
                     initializeSeed={initializeEncBookArea}
@@ -127,6 +136,7 @@ function App() {
             <hr />
             <button
                 onClick={handleOnClickBtnDbRegister}
+                className="btn-db-register"
             >DB登録</button>
         </div>
     );

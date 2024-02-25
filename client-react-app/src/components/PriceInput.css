@@ -1,0 +1,26 @@
+.div-price-nums {
+
+}
+.btn-price-num {
+    width: 40px;
+    height: 40px;
+    vertical-align: middle;
+}
+.btn-price-num:hover {
+    background-color: #f00;
+    color: #fff;
+    font-size: larger;
+}
+
+.input-price {
+    height: 40px;
+    width: 100px;
+    text-align: center;
+    font-size: large;
+}
+.btn-clear {
+    height: 40px;
+    width: 40px;
+    border-width: 1px;
+    border-radius: 7px;
+}

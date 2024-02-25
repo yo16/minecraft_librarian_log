@@ -8,11 +8,13 @@ const BookEncLevel = ({level, enabled, selected, onClick=f=>f}) => {
     };
 
     return (
-        <div>
+        <div
+            className="div-levels"
+        >
             <button
                 onClick={handleClick}
                 disabled={!enabled}
-                className={selected?"btn-selected":""}
+                className={(selected?"btn-selected":"") + " btn-level"}
             >{LEVEL_TEXT[level-1]}</button>
         </div>
     );

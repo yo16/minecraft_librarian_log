@@ -1,3 +1,9 @@
-.btn-selected {
-    background-color: #f00;
+.div-levels {
+    margin: 5px 0;
+}
+.btn-level {
+    height: 50px;
+    width: 50px;
+    border-width: 1px;
+    border-radius: 7px;
 }

@@ -1,3 +1,10 @@
-.btn-selected {
-    background-color: #f00;
+.div-books {
+    margin: 5px 0;
+    width: 130px;
+}
+.btn-book {
+    height: 50px;
+    min-width: 80px;
+    border-width: 1px;
+    border-radius: 7px;
 }

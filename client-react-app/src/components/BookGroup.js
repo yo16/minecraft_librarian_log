@@ -6,10 +6,12 @@ const BookGroup = ({name, group_index, selected, onClick=f=>f}) => {
     };
 
     return (
-        <div>
+        <div
+            className="div-book-group"
+        >
             <button
                 onClick={handleOnClick}
-                className={selected?"btn-selected":""}
+                className={(selected?"btn-selected":"")+" btn-book-group"}
             >{name}</button>
         </div>
     );
