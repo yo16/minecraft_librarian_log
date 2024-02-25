@@ -51,6 +51,10 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
     const bookMap = ENC_DEF.enchanting.reduce((tmpMap, val) => {
         return {...tmpMap, [val.name]:{max_level:val.max_level}};
     }, {});
+    // リクエスト本
+    const requestBookMap = ENC_REQ.request.reduce((m, val) => (
+        {...m, [val.name]:val.level}
+    ));
 
     // グループ選択
     const handleClickGroup = (index) => {
@@ -149,6 +153,12 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
                         enabled={(i+1<=bookMap[selectedEnchantName].max_level)?true: false}
                         onClick={handleClickLevel}
                         selected={((i+1)===selectedEnchantLevel)?true:false}
+                        isRequested={
+                            (
+                                (selectedEnchantName in requestBookMap) &&
+                                (requestBookMap[selectedEnchantName]===(i+1))
+                            )
+                        }
                     />
                 ))}
             </div>

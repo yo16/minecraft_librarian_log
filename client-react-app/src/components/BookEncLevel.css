@@ -7,3 +7,8 @@
     border-width: 1px;
     border-radius: 7px;
 }
+.btn-requested {
+    border-width: 2px;
+    border-color: #ff0;
+    background-color: #ffc;
+}
