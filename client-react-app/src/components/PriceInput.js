@@ -10,18 +10,27 @@ const PriceInput = ({ initializeSeed, onEnter=f=>f }) => {
         setPrice(0);
     }, [initializeSeed]);
 
-    const handleOnClick = (n) => {
+    const handleOnNumberClick = (n) => {
         const p = Number(String(price) + n);
-        setPrice(p);
-        onEnter(p);
+        handleOnChangePrice(p);
     };
     const handleOnClear = (price) => {
         setPrice(0);
         onEnter(0);
     }
     const handleOnChangePrice = (p) => {
-        setPrice(p);
-        onEnter(p);
+        // priceは、5-64のハズなので
+        // その範囲外の場合は、範囲内になるまで先頭から１文字ずつ消す
+        // 5未満は、入力途中かもしれないから処理の対象外
+        let next_p_str = String(Number(p));
+        let next_p = Number(p);
+        while (next_p>64) {
+            next_p_str = next_p_str.slice(1);
+            next_p = Number(next_p_str);
+        }
+
+        setPrice(next_p);
+        onEnter(next_p);
     };
 
     return (
@@ -36,7 +45,7 @@ const PriceInput = ({ initializeSeed, onEnter=f=>f }) => {
                         {line_ary.map((n, i)=>(
                             <button
                                 key={`num_${n}`}
-                                onClick={()=>{handleOnClick(n);}}
+                                onClick={()=>{handleOnNumberClick(n);}}
                                 className="btn-price-num"
                             >{n}</button>
                         ))}
