@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import TradeEncBookArea from './components/TradeEncBookArea';
 
@@ -11,6 +11,7 @@ function App() {
     const [isSelectedEncBook, setIsSelectedEncBook] = useState(false);
     const [encBookInfo, setEncBookInfo] = useState({name:"", level:0, price:0});
     const [initializeEncBookArea, setInitializeEncBookArea] = useState(0);
+    const [resultList, setResultList] = useState([]);
 
     const initializeState = () => {
         setIsSelectedBookShelf(false);
@@ -79,11 +80,20 @@ function App() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(post_body)
-        }).then((response)=>console.log(response));
+        }).then((response)=>response.json()
+        ).then((body) => {
+            setResultList([...resultList, ...body]);
+            //ulResults.scrollTo(0,ulResults.scrollHeight);
+        });
 
         // 初期化
         initializeState();
     };
+    // resultListに追加されたら、一番下までスクロール
+    useEffect(()=>{
+        const elm_ulResults = document.getElementById("ulResults");
+        elm_ulResults.scrollTo(0, elm_ulResults.scrollHeight);
+    },[resultList]);
 
     return (
         <div className="app-frame">
@@ -145,6 +155,19 @@ function App() {
                     ) !== 2
                 }
             >DB登録</button>
+            <hr />
+            <ul
+                className="ul-result"
+                id="ulResults"
+            >
+                {resultList.map((r, i)=>{
+                    return (
+                        <li key={`opt-result_${i}`}>
+                            {`${r.item}(${r.level}) - ${r.price}em`}
+                        </li>
+                    );
+                })}
+            </ul>
         </div>
     );
 }
