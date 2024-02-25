@@ -137,6 +137,13 @@ function App() {
             <button
                 onClick={handleOnClickBtnDbRegister}
                 className="btn-db-register"
+                disabled={
+                    (
+                        (isSelectedBookShelf?1:0) +
+                        (isSelectedPaper?1:0) +
+                        (isSelectedEncBook?1:0)
+                    ) !== 2
+                }
             >DB登録</button>
         </div>
     );
