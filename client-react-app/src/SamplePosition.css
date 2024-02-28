@@ -1,0 +1,11 @@
+.tbl-position {
+    background-color: rgba(255,255,255, 0.6);
+    font-size: small;
+  }
+  .tbl-position, .tbl-position td {
+    border: 1px solid #363;
+  }
+  .tbl-position td {
+    min-width: 80px;
+    padding: 0 10px;
+  }

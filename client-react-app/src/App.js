@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import TradeEncBookArea from './components/TradeEncBookArea';
 
 import './App.css';
+import SamplePosition from "./SamplePosition";
 
 
 function App() {
@@ -143,7 +144,6 @@ function App() {
                     onSelectEncBook={handleSelectEnchantBook}
                 />
             </div>
-            <hr />
             <button
                 onClick={handleOnClickBtnDbRegister}
                 className="btn-db-register"
@@ -156,18 +156,21 @@ function App() {
                 }
             >DB登録</button>
             <hr />
-            <ul
-                className="ul-result"
-                id="ulResults"
-            >
-                {resultList.map((r, i)=>{
-                    return (
-                        <li key={`opt-result_${i}`}>
-                            {`${r.item}(${r.level}) - ${r.price}em`}
-                        </li>
-                    );
-                })}
-            </ul>
+            <div className="div-info">
+                <ul
+                    className="ul-result"
+                    id="ulResults"
+                >
+                    {resultList.map((r, i)=>{
+                        return (
+                            <li key={`opt-result_${i}`}>
+                                {`${r.item}(${r.level}) - ${r.price}em`}
+                            </li>
+                        );
+                    })}
+                </ul>
+                <SamplePosition />
+            </div>
         </div>
     );
 }
