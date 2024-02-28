@@ -184,6 +184,7 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
             </div>
 
             {/* 確定ボタン */}
+            {/*
             <div>
                 <button
                     onClick={handleOnDetermineBook}
@@ -191,22 +192,27 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
                     className="btn-dtermine-book"
                 >EN本<br />確定</button>
             </div>
+            */}
 
             {/* 統計情報 */}
-            <div>
-                {(Object.keys(enchantStatistics).length===0) && (
+            <div className="div-static-info">
+                {(price>=5 && price<=64) && (
                     <>
-                        <div>過去件数: 0</div>
-                        <div>平均: -</div>
-                        <div>標準偏差: -</div>
-                        <div>これ以下の金額が出る確率: -%</div>
-                    </>
-                )}{(Object.keys(enchantStatistics).length!==0) && (
-                    <>
-                        <div>過去件数: {enchantStatistics.count}</div>
-                        <div>平均: {enchantStatistics.average}</div>
-                        <div>標準偏差: {enchantStatistics.standard_deviation}</div>
-                        <div>{price}以下の金額が出る確率: {Math.round((enchantStatistics.probability)*1000)/10}%</div>
+                    {(Object.keys(enchantStatistics).length===0) && (
+                        <>
+                            <div>過去件数: 0</div>
+                            <div>平均: -</div>
+                            <div>標準偏差: -</div>
+                            <div>x以下の金額が出る確率: -%</div>
+                        </>
+                    )}{(Object.keys(enchantStatistics).length!==0) && (
+                        <>
+                            <div>過去件数: {enchantStatistics.count}</div>
+                            <div>平均: {enchantStatistics.average.toFixed(1)}</div>
+                            <div>標準偏差: {enchantStatistics.standard_deviation.toFixed(1)}</div>
+                            <div>{price}以下の金額が出る確率: {(enchantStatistics.probability*100).toFixed(1)}%</div>
+                        </>
+                    )}
                     </>
                 )}
             </div>
