@@ -170,6 +170,7 @@ function getAllStats(item, level, price, ave_price){
                     item,
                     level,
                     price,
+                    count,
                     average: ave_price,
                     standard_deviation: sd_price,
                     probability,

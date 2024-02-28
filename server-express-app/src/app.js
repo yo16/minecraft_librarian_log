@@ -32,12 +32,12 @@ app.get('/', (req, res)=> {
         req.query.item_price,
     ).then(({
         item, level, price,
-        average, standard_deviation, probability,
+        count, average, standard_deviation, probability,
     }) => {
         // 結果を返す
         res.json({
             item, level, price,
-            average, standard_deviation, probability,
+            count, average, standard_deviation, probability,
         });
     });
 });

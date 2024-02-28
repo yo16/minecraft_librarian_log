@@ -26,8 +26,8 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
     const [price, setPrice] = useState(0);
     // 統計情報
     const [enchantStatistics, setEnchantStatistics] = useState({
-        item:"",level:0,price:0,
-        average:0, standard_deviation:0, probability:0,
+        item:"", level:0, price:0,
+        count:0, average:0, standard_deviation:0, probability:0,
     });
 
     // 初期化指示が来たら初期化
@@ -38,8 +38,8 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
         setSelectedEnchantLevel(0);
         setPrice(0);
         setEnchantStatistics({
-            item:"",level:0,price:0,
-            average:0, standard_deviation:0, probability:0,
+            item:"", level:0, price:0,
+            count:0, average:0, standard_deviation:0, probability:0,
         });
 
     }, [initializeSeed]);
@@ -182,9 +182,21 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
 
             {/* 統計情報 */}
             <div>
-                <div>平均:{enchantStatistics.average}</div>
-                <div>標準偏差:{enchantStatistics.standard_deviation}</div>
-                <div>これ以上が出る確率:{Math.round(enchantStatistics.probability*1000)/10}%</div>
+                {(Object.keys(enchantStatistics).length===0) && (
+                    <>
+                        <div>過去件数: 0</div>
+                        <div>平均: -</div>
+                        <div>標準偏差: -</div>
+                        <div>これ以下の金額が出る確率: -%</div>
+                    </>
+                )}{(Object.keys(enchantStatistics).length!==0) && (
+                    <>
+                        <div>過去件数: {enchantStatistics.count}</div>
+                        <div>平均: {enchantStatistics.average}</div>
+                        <div>標準偏差: {enchantStatistics.standard_deviation}</div>
+                        <div>これ以下の金額が出る確率: {Math.round((1-enchantStatistics.probability)*1000)/10}%</div>
+                    </>
+                )}
             </div>
         </div>
     );
