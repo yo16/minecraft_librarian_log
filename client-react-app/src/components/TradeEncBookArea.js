@@ -52,9 +52,15 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
         return {...tmpMap, [val.name]:{max_level:val.max_level}};
     }, {});
     // リクエスト本
-    const requestBookMap = ENC_REQ.request.reduce((m, val) => (
-        {...m, [val.name]:val.level}
-    ));
+    const requestBookMap = ENC_REQ.request.reduce((m, val) => {
+        const newM = {...m};
+        if (val.name in newM) {
+            newM[val.name].push(val.level);
+        } else {
+            newM[val.name] = [val.level];
+        }
+        return newM;
+    },{});
 
     // グループ選択
     const handleClickGroup = (index) => {
@@ -156,7 +162,7 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
                         isRequested={
                             (
                                 (selectedEnchantName in requestBookMap) &&
-                                (requestBookMap[selectedEnchantName]===(i+1))
+                                (requestBookMap[selectedEnchantName].includes(i+1))
                             )
                         }
                     />
