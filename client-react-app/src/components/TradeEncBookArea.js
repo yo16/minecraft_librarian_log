@@ -194,7 +194,7 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
                         <div>過去件数: {enchantStatistics.count}</div>
                         <div>平均: {enchantStatistics.average}</div>
                         <div>標準偏差: {enchantStatistics.standard_deviation}</div>
-                        <div>これ以下の金額が出る確率: {Math.round((1-enchantStatistics.probability)*1000)/10}%</div>
+                        <div>これ以下の金額が出る確率: {Math.round((enchantStatistics.probability)*1000)/10}%</div>
                     </>
                 )}
             </div>
