@@ -162,8 +162,9 @@ function getAllStats(item, level, price, ave_price){
                 sd_price  = row.sd;
 
                 const z = (price - ave_price) / sd_price;
-                const z_sign = Math.sign(z);
-                const cdfValue = (1.0 + erf(Math.abs(z) / Math.sqrt(2))) / 2;
+                // -∞からの積分結果
+                const cdfValue = (1.0 + erf(z / Math.sqrt(2))) / 2;
+                // このpriceより低い確率
                 probability = cdfValue;
                 
                 resolve({

@@ -75,7 +75,7 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
         setSelectedEnchantLevel(
             (bookMap[enchantName].max_level===1) ?1: 0
         );
-    }
+    };
     // 本（エンチャント）を選択
     const handleClickBook = (index) => {
         // console.log("handleClickBook");
@@ -88,30 +88,36 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
         setSelectedEnchantLevel(
             (bookMap[enchantName].max_level===1) ?1: 0
         );
-    }
+    };
     // レベルを選択(1から始まる)
     const handleClickLevel = (level) => {
         // console.log("handleClickLevel");
         // console.log(`leve:${level}`);
         setSelectedEnchantLevel(level);
-    }
+    };
     // 料金を登録
     const handleInputPrice = (_price) => {
         setPrice(_price);
-    }
+        if (5<=_price && _price<=64) {
+            getStatisticsInfo(_price);
+            onSelectEncBook(selectedEnchantName, selectedEnchantLevel, _price);
+        }
+    };
     // 全部確定
     const handleOnDetermineBook = () => {
         // サーバーから統計情報を取得して、画面へ表示
-        getStatisticsInfo();
-        onSelectEncBook(selectedEnchantName, selectedEnchantLevel, price);
-    }
+        if (5<=price && price<=64) {
+            getStatisticsInfo();
+            onSelectEncBook(selectedEnchantName, selectedEnchantLevel, price);
+        }
+    };
 
-    const getStatisticsInfo = async () => {
+    const getStatisticsInfo = async (cur_price = price) => {
         // サーバーに問い合わせて統計情報を得る
         const query = "http://127.0.0.1:8080/?" +
             `item_name=${selectedEnchantName}&` +
             `item_level=${selectedEnchantLevel}&` +
-            `item_price=${price}`;
+            `item_price=${cur_price}`;
         //console.log(query);
         try {
             const res = await fetch(query);
@@ -200,7 +206,7 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
                         <div>過去件数: {enchantStatistics.count}</div>
                         <div>平均: {enchantStatistics.average}</div>
                         <div>標準偏差: {enchantStatistics.standard_deviation}</div>
-                        <div>これ以下の金額が出る確率: {Math.round((enchantStatistics.probability)*1000)/10}%</div>
+                        <div>{price}以下の金額が出る確率: {Math.round((enchantStatistics.probability)*1000)/10}%</div>
                     </>
                 )}
             </div>
