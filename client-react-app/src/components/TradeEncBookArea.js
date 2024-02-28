@@ -103,6 +103,7 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
             onSelectEncBook(selectedEnchantName, selectedEnchantLevel, _price);
         }
     };
+    /*
     // 全部確定
     const handleOnDetermineBook = () => {
         // サーバーから統計情報を取得して、画面へ表示
@@ -111,6 +112,7 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
             onSelectEncBook(selectedEnchantName, selectedEnchantLevel, price);
         }
     };
+    */
 
     const getStatisticsInfo = async (cur_price = price) => {
         // サーバーに問い合わせて統計情報を得る
