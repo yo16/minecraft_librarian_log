@@ -7,6 +7,7 @@ import BookGroup from "./BookGroup";
 import Book from "./Book";
 import BookEncLevel from "./BookEncLevel";
 import PriceInput from "./PriceInput";
+import DropGraph from "./DropGraph";
 
 import "./TradeEncBookArea.css";
 
@@ -201,20 +202,26 @@ const TradeEncBookArea = ({initializeSeed, onSelectEncBook = f => f}) => {
                 {(price>=5 && price<=64) && (
                     <>
                     {(Object.keys(enchantStatistics).length===0) && (
-                        <>
+                        <div>
                             <div>過去件数: 0</div>
                             <div>平均: -</div>
                             <div>標準偏差: -</div>
                             <div>x以下の金額が出る確率: -%</div>
-                        </>
+                        </div>
                     )}{(Object.keys(enchantStatistics).length!==0) && (
-                        <>
+                        <div>
                             <div>過去件数: {enchantStatistics.count}</div>
                             <div>平均: {enchantStatistics.average.toFixed(1)}</div>
                             <div>標準偏差: {enchantStatistics.standard_deviation.toFixed(1)}</div>
                             <div>{price}以下の金額が出る確率: {(enchantStatistics.probability*100).toFixed(1)}%</div>
-                        </>
+                        </div>
                     )}
+                    <DropGraph
+                        count={enchantStatistics.count}
+                        average={enchantStatistics.average}
+                        standardDeviation={enchantStatistics.standard_deviation}
+                        curValue={price}
+                    />
                     </>
                 )}
             </div>
